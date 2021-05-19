@@ -28,7 +28,7 @@ echo "prefix=${prefix}"
 SYSTEM_CFLAGS=
 case $(uname) in
 	Linux )
-		SYSTEM_CFLAGS=-D_POSIX_C_SOURCE=200809L
+		SYSTEM_CFLAGS="-D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=500"
 	;;
 	OpenBSD )
 		SYSTEM_CFLAGS=
