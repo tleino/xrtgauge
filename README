@@ -1,7 +1,7 @@
-rtgauge
+xrtgauge
 =======
 
-rtgauge draws live gauge view from standard input data for X11 Window System.
+xrtgauge draws live gauge view from standard input data for X11 Window System.
 
 Dependencies
 ============
