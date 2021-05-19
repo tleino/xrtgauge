@@ -1,0 +1,49 @@
+SHELL = /bin/sh
+CFLAGS = -g -Wall -pedantic -std=c99 @PKGS_CFLAGS@ @SYSTEM_CFLAGS@
+LDFLAGS = @PKGS_LDFLAGS@ -lm
+
+prefix = @prefix@
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin
+libdir = $(exec_prefix)/lib
+datarootdir = $(prefix)/share
+mandir = $(datarootdir)/man
+
+INSTALL ?= install
+INSTALLFLAGS ?= -D
+
+SRCS=gauge.c x11.c x11gaugeview.c xrtgauge.c
+	
+DISTFILES=\
+	Makefile.in\
+	configure\
+	README\
+	LICENSE
+PROG=xrtgauge
+MAN=xrtgauge.1
+
+OBJS=$(SRCS:.c=.o)
+
+all: $(PROG)
+
+$(PROG): $(OBJS)
+	$(CC) -o$@ $(OBJS) $(LDFLAGS)
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	rm -f $(OBJS) $(PROG)
+
+install: $(PROG)
+	$(INSTALL) $(INSTALLFLAGS) $(PROG) $(DESTDIR)$(bindir)/$(PROG)
+	$(INSTALL) $(INSTALLFLAGS) $(MAN) $(DESTDIR)$(mandir)/$(MAN)
+
+uninstall:
+	rm -f $(DESTDIR)$(bindir)/$(PROG)
+
+gauge.o: gauge.c gauge.h gaugeview.h util.h
+x11.o: x11.c util.h gfxctx.h x11.h
+x11gaugeview.o: x11gaugeview.c gaugeview.h gauge.h gfxctx.h x11.h util.h
+xrtgauge.o: xrtgauge.c gauge.h gfxctx.h util.h
+
