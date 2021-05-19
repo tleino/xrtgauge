@@ -61,7 +61,7 @@ gaugeview_draw_value(struct gaugeview *view, double pos, double val)
 	int height, width;
 	Display *dpy;
 	GC gc;
-	Window srcwin, dstwin;
+	Window dstwin;
 	struct gfxwin *win;
 	double cx, cy, x, y;
 	double angle_deg;
@@ -70,7 +70,6 @@ gaugeview_draw_value(struct gaugeview *view, double pos, double val)
 	win = view->win;
 	dpy = win->ctx->dpy;
 	gc = win->fg;
-	srcwin = win->win;
 	dstwin = win->win;
 	width = gfxwin_width(win);
 	height = gfxwin_height(win);
